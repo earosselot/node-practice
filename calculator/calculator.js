@@ -21,19 +21,18 @@
  *
  */
 
-const {sum, sub, mult, div} = require('./maths');
 const math = require('./maths2')
-const languages = require('./languages');
+const languages = require('./languages')
 const [operation, numAstr, numBstr] = process.argv.splice(2)
 const language = process.env.LANG
 
 if (language !== 'es' && language !== 'en') {
-  throw new Error('Idioma incorrecto')
+	throw new Error('Idioma incorrecto')
 }
 
 if (!operation || !numAstr || !numBstr) {
-  console.error('se necesitan 3 argumentos: operacion numeroA numeroB')
-  process.exit(1)
+	console.error('se necesitan 3 argumentos: operacion numeroA numeroB')
+	process.exit(1)
 }
 
 const validOperations = ['suma', 'resta', 'multiplicacion', 'division']
@@ -42,29 +41,29 @@ let numB = Number(numBstr)
 
 
 if (!validOperations.includes(operation)) {
-  console.error('La operacion no es valida. Las opraciones validas son: suma, resta, multiplicacion y division.')
-  process.exit(1)
+	console.error('La operacion no es valida. Las opraciones validas son: suma, resta, multiplicacion y division.')
+	process.exit(1)
 }
 
 if (isNaN(numA) || isNaN(numB)) {
-  console.error('Numeros no validos')
-  process.exit(1)
+	console.error('Numeros no validos')
+	process.exit(1)
 }
 
-result = math[operation](numA, numB)
+const result = math[operation](numA, numB)
 
 if (isNaN(result)) {
-  console.error('Resultado indeterminado.')
-  process.exit(1)
+	console.error('Resultado indeterminado.')
+	process.exit(1)
 }
 
 if (!isFinite(result)) {
-  console.error('El resultado es infinito.')
-  process.exit(1)
+	console.error('El resultado es infinito.')
+	process.exit(1)
 }
 
 if (language === 'es') {
-  console.log(`El resultado de ${languages[operation][language]} ${numA} y ${numB} es: ${result}`)
+	console.log(`El resultado de ${languages[operation][language]} ${numA} y ${numB} es: ${result}`)
 } else if(language === 'en') {
-  console.log(`The result of ${languages[operation][language]} ${numA} and ${numB} is: ${result}`)
+	console.log(`The result of ${languages[operation][language]} ${numA} and ${numB} is: ${result}`)
 }
